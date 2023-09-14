@@ -2,7 +2,6 @@ import multiprocessing as mp
 import secrets
 import sys
 import webbrowser
-from multiprocessing.connection import PipeConnection
 from pathlib import Path
 from typing import Any
 
@@ -304,7 +303,7 @@ class App:
     #     pass
 
     def filebrowser_window(
-        self, mode: str, output_select: bool, connection: PipeConnection
+        self, mode: str, output_select: bool, connection: Any
     ) -> None:
         allow_multi_selection = not output_select
         if not output_select:
@@ -339,9 +338,7 @@ class App:
         dpg.set_primary_window("fb", True)
 
     @staticmethod
-    def send_paths(
-        paths: list, cancel_pressed: bool, connection: PipeConnection
-    ) -> None:
+    def send_paths(paths: list, cancel_pressed: bool, connection: Any) -> None:
         if cancel_pressed:
             connection.send(None)
         else:

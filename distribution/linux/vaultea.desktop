@@ -1,0 +1,17 @@
+[Desktop Entry]
+
+Type=Application
+
+Name=Vaultea
+
+Category=Utility
+
+Terminal=false
+
+Comment=Easy to use file encryption app.
+
+Path=/opt/vaultea
+
+Exec=/opt/vaultea/vaultea
+
+Icon=vaultea

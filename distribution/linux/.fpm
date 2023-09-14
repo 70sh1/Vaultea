@@ -1,0 +1,9 @@
+--name "vaultea"
+--version 1.1.0
+--description "Easy to use file encryption app."
+--url "https://github.com/70sh1/Vaultea"
+--category "Utility"
+--license MIT
+--maintainer "70sh1 <70sh1@proton.me>"
+--input-type dir
+--chdir package

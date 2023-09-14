@@ -13,8 +13,10 @@ CHUNK_SIZE = 1024 * 1024  # 1 MiB
 
 class Key:
     def __init__(self, password: str) -> None:
-        self.data_key = os.urandom(32)  # Key that will be used on file data
-        key, self.salt = key_derive(password)  # Key that will be used on the data kay
+        self.data_key = os.urandom(32)  # Key that will be used to encrypt file data
+        key, self.salt = key_derive(
+            password
+        )  # Key that will be used to encrypt the data kay
         cipher = ChaCha20_Poly1305.new(key=key)
         self.data_key_encrypted = cipher.encrypt(self.data_key)
         self.data_key_tag = cipher.digest()
@@ -94,8 +96,8 @@ def encrypt_files(files: dict[File, Path], password: str) -> Iterator:
 
                 # Get MAC tag of all the data passed through the encryptor
                 tag = cipher.digest()
-
-                f_out.seek(88)  # Place "pointer" at the begining of the tag placeholder
+                # Place file handle at the begining of the tag placeholder
+                f_out.seek(88)
                 f_out.write(tag)  # Overwrite placeholder with the actual tag
             file_out.replace(file_out.with_suffix(""))  # Remove .tmp suffix
 
@@ -166,8 +168,9 @@ def decrypt_files(files: dict[File, Path], password: str) -> Iterator:
 
         # Something "unexpected" happened
         except Exception as err:
+            # Delete tmp file if it exists
             if file_out.exists():
-                file_out.unlink()  # Delete tmp file
+                file_out.unlink()
             yield err, display_name
 
         files_processed += 1

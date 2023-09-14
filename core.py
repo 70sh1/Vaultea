@@ -13,10 +13,12 @@ CHUNK_SIZE = 1024 * 1024  # 1 MiB
 
 class Key:
     def __init__(self, password: str) -> None:
-        self.data_key = os.urandom(32)  # Key that will be used to encrypt file data
-        key, self.salt = key_derive(
-            password
-        )  # Key that will be used to encrypt the data kay
+        # Key that will be used to encrypt file data
+        self.data_key = os.urandom(32)
+
+        # Key that will be used to encrypt the data kay
+        key, self.salt = key_derive(password)
+
         cipher = ChaCha20_Poly1305.new(key=key)
         self.data_key_encrypted = cipher.encrypt(self.data_key)
         self.data_key_tag = cipher.digest()

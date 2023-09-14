@@ -30,6 +30,8 @@ Download the latest release from the [releases](https://github.com/70sh1/Vaultea
 ### Linux
 *The required glibc version is 2.31 or above. Use `ldd --version` to check.*
 
+Tip: after installation, you can run the app from both the desktop environment and terminal by simply invoking `vaultea`
+
 #### Ubuntu / Debian
 1. Download the latest `.deb` from the releases page.
 

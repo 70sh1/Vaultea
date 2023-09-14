@@ -78,10 +78,10 @@ For each file:
 
 If a folder is selected, it gets zipped first, without compression, then:
 1. A new 256-bit random key is generated (data key).
-2. The contents of the file are encrypted using ChaCha20 with this data key.
+2. The contents of the file are encrypted using ChaCha20 with data key.
 3. Another key is generated using the password entered by the user, the scrypt key derivation function, and a random salt.
-4. The key from step 1 is encrypted with the key from step 3.
-5. The encrypted key, salt, MAC tags (Poly1305) of the key and data, and the encrypted data itself are written to the output file.
+4. The data key is encrypted with the key from step 3.
+5. The encrypted key, salt, MAC tags (Poly1305) of the data key and data, and the encrypted data itself are written to the output file.
 
 ## Acknowledgements
 [DearPyGui](https://github.com/hoffstadt/DearPyGui) - GUI

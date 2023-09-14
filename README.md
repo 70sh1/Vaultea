@@ -20,7 +20,7 @@ _Vaultea_ is simple and easy to use file encryption app. It supports batch file 
 * Folder encryption (automatic zipping before encryption)
 * Data authencity
 * Plausible deniability
-* [Passphrase generation](https://github.com/70sh1/Vaultea#generating-passphrase)
+* [Passphrase generation](https://github.com/70sh1/Vaultea#generating-a-passphrase)
 
 ## Installation
 
@@ -29,6 +29,8 @@ Download the latest release from the [releases](https://github.com/70sh1/Vaultea
 
 ### Linux
 *The required glibc version is 2.31 or above. Use `ldd --version` to check.*
+
+Tip: after installation, you can run the app from both the desktop environment and terminal by simply invoking `vaultea`
 
 #### Ubuntu / Debian
 1. Download the latest `.deb` from the releases page.
@@ -78,10 +80,10 @@ For each file:
 
 If a folder is selected, it gets zipped first, without compression, then:
 1. A new 256-bit random key is generated (data key).
-2. The contents of the file are encrypted using ChaCha20 with this data key.
+2. The contents of the file are encrypted using ChaCha20 with data key.
 3. Another key is generated using the password entered by the user, the scrypt key derivation function, and a random salt.
-4. The key from step 1 is encrypted with the key from step 3.
-5. The encrypted key, salt, MAC tags (Poly1305) of the key and data, and the encrypted data itself are written to the output file.
+4. The data key is encrypted with the key from step 3.
+5. The encrypted key, salt, MAC tags (Poly1305) of the data key and data, and the encrypted data itself are written to the output file.
 
 ## Acknowledgements
 [DearPyGui](https://github.com/hoffstadt/DearPyGui) - GUI

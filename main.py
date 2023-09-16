@@ -350,17 +350,17 @@ class App:
         paths = []
         read_conn, write_conn = mp.Pipe(duplex=False)
         filebrowser_args = mode, output_select, write_conn
-        process1 = mp.Process(
+        file_browser_process = mp.Process(
             target=self.setup_and_spawn_window, args=(filebrowser_args,), daemon=True
         )
 
-        process1.start()
-        while process1.is_alive():
+        file_browser_process.start()
+        while file_browser_process.is_alive():
             if read_conn.poll():
                 paths = read_conn.recv()
-                process1.terminate()
+                file_browser_process.terminate()
 
-        process1.join()
+        file_browser_process.join()
         write_conn.close()
         read_conn.close()
 

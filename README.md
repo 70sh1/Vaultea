@@ -55,7 +55,7 @@ Vaultea has not been tested on macOS by any means, therefore prebuilt binaries a
 1. Clone/download the repo
 2. cd into project root directory
 3. Run `poetry install` *OR* `pip install -r requirements.txt`
-4. Run `python main.py`
+4. Run `poetry run python main.py` *OR* `python main.py`
 
 ## Generating a passphrase
 Passphrases are awesome. Vaultea provides the ability to generate one with a single click. It consists of six randomly selected words from EFF's long wordlist. You can read more about passphrases [here](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases).

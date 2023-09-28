@@ -764,6 +764,9 @@ class App:
         dpg.add_image("checkmark", parent="pb_row")
         dpg.enable_item("progress_popup_close_button")
 
+        self.files_in[self.mode] = self.skipped_files
+        self.update_header(self.files_in, self.mode)
+
         if self.skipped_files:
             dpg.delete_item(self.popup.tag)
             self.popup = Popup(
@@ -777,28 +780,6 @@ class App:
             )
             self.popup.display_skipped_files(self.skipped_files)
             return
-
-    def skipped_files_popup_close(self) -> None:
-        self.files_in[self.mode] = self.skipped_files
-        self.update_header(self.files_in, self.mode)
-
-        self.update_encrypt_button_state()
-        self.update_decrypt_button_state()
-
-        if self.popup:
-            dpg.delete_item(self.popup.tag)
-        else:
-            raise RuntimeError
-        self.popup = None
-
-    def progress_popup_close(self) -> None:
-        if self.popup:
-            dpg.delete_item(self.popup.tag)
-        else:
-            raise RuntimeError
-        self.popup = None
-
-        self.reset()
 
 
 class Popup:
@@ -830,6 +811,13 @@ class Popup:
 
         dpg.bind_item_theme(self.tag, "popup_theme")
 
+    def close(self) -> None:
+        self.app.popup = None
+        dpg.delete_item(self.tag)
+
+        self.app.update_decrypt_button_state()
+        self.app.update_encrypt_button_state()
+
     def display_skipped_files(self, skipped_files: list[File]) -> None:
         with dpg.collapsing_header(
             label=f"({len(skipped_files)})",
@@ -842,7 +830,7 @@ class Popup:
             parent=self.tag,
             label="Close",
             width=-1,
-            callback=self.app.skipped_files_popup_close,
+            callback=self.close,
         )
         self.update_height()
 
@@ -858,10 +846,7 @@ class Popup:
     def next_message(self) -> None:
         message = next(self.messages_iter, None)
         if not message:
-            self.app.popup = None
-            dpg.delete_item(self.tag)
-            self.app.update_decrypt_button_state()
-            self.app.update_encrypt_button_state()
+            self.close()
             return
 
         dpg.set_value("popup_text", message)
@@ -902,7 +887,7 @@ class Popup:
             tag="progress_popup_close_button",
             width=-1,
             enabled=False,
-            callback=self.app.progress_popup_close,
+            callback=self.close,
         )
         self.update_height()
 

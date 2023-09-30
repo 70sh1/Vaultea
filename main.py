@@ -731,7 +731,7 @@ class App:
         )
         self.popup.progress_bar()
 
-        self.skipped_files: list[File] = []
+        skipped_files: list[File] = []
         max_progress = len(files)
         for result in processor(files, password):
             if type(result[0]) in (int, float, complex):
@@ -740,7 +740,7 @@ class App:
                 dpg.set_value("progress_bar", progress / max_progress)
             elif result[0] is False:
                 failed_file = result[1]
-                self.skipped_files.append(failed_file)
+                skipped_files.append(failed_file)
             else:
                 dpg.delete_item("progress_bar_popup")
                 err = repr(result[0])
@@ -764,10 +764,10 @@ class App:
         dpg.add_image("checkmark", parent="pb_row")
         dpg.enable_item("progress_popup_close_button")
 
-        self.files_in[self.mode] = self.skipped_files
+        self.files_in[self.mode] = skipped_files
         self.update_header(self.files_in, self.mode)
 
-        if self.skipped_files:
+        if skipped_files:
             dpg.delete_item(self.popup.tag)
             self.popup = Popup(
                 title="Error",
@@ -778,7 +778,7 @@ class App:
                 ],
                 app=self,
             )
-            self.popup.display_skipped_files(self.skipped_files)
+            self.popup.display_skipped_files(skipped_files)
             return
 
 

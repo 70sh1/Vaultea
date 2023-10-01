@@ -306,14 +306,16 @@ class App:
         self, mode: str, output_select: bool, connection: Any
     ) -> None:
         allow_multi_selection = not output_select
+        filetype_filter = None
+        filetype_filter_default = 0
+
         if not output_select:
             if mode == "_dec":
                 filetype_filter = [
                     {"label": "All files", "formats": ["*"]},
                     {"label": "Encrypted file", "formats": ["teax"]},
                 ]
-            else:
-                filetype_filter = None
+                filetype_filter_default = 1
         else:
             filetype_filter = [{"label": "Folders", "formats": ["*"]}]
 
@@ -328,6 +330,7 @@ class App:
                 expand_sequences_on_callback=False,
                 show_ok_cancel=True,
                 filetype_filter=filetype_filter,
+                filetype_filter_default=filetype_filter_default,
                 icon_size=0,
                 add_filename_tooltip=False,
                 allow_drag=False,

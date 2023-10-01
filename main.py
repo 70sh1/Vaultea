@@ -309,15 +309,15 @@ class App:
         filetype_filter = None
         filetype_filter_default = 0
 
-        if not output_select:
-            if mode == "_dec":
-                filetype_filter = [
-                    {"label": "All files", "formats": ["*"]},
-                    {"label": "Encrypted file", "formats": ["teax"]},
-                ]
-                filetype_filter_default = 1
-        else:
+        if output_select:
             filetype_filter = [{"label": "Folders", "formats": ["*"]}]
+
+        elif mode == "_dec":
+            filetype_filter = [
+                {"label": "All files", "formats": ["*"]},
+                {"label": "Encrypted file", "formats": ["teax"]},
+            ]
+            filetype_filter_default = 1
 
         with dpg.window(tag="fb"):
             dpge.add_file_browser(

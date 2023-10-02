@@ -16,7 +16,7 @@ class Key:
         # Key that will be used to encrypt file data
         self.data_key = os.urandom(32)
 
-        # Key that will be used to encrypt the data kay
+        # Key that will be used to encrypt the data key
         key, self.salt = key_derive(password)
 
         cipher = ChaCha20_Poly1305.new(key=key)

@@ -12,17 +12,30 @@ CHUNK_SIZE = 1024 * 1024  # 1 MiB
 
 
 class Key:
+    """Create new Key object which contains the plaintext key and it's encrypted version.
+    Also sets it's tag and nonce.
+    """
+
     def __init__(self, password: str) -> None:
         # Key that will be used to encrypt file data
         self.data_key = os.urandom(32)
 
         # Key that will be used to encrypt the data key
-        key, self.salt = key_derive(password)
+        key, self.salt = self.key_derive(password)
 
         cipher = ChaCha20_Poly1305.new(key=key)
         self.data_key_encrypted = cipher.encrypt(self.data_key)
         self.data_key_tag = cipher.digest()
         self.data_key_nonce = cipher.nonce
+
+    @staticmethod
+    def key_derive(password: str, salt: bytes | None = None) -> tuple[bytes, bytes]:
+        if not salt:
+            salt = os.urandom(16)  # 16 cryptographically secure random bytes
+        key = scrypt(password, str(salt), key_len=32, N=2**20, r=8, p=1)
+        if not isinstance(key, bytes):
+            raise TypeError
+        return key, salt
 
 
 def decrypt_key(
@@ -33,7 +46,7 @@ def decrypt_key(
     password: str,
 ) -> bytes | Literal[False]:
     """Try to decrypt and verify an encrypted key. Returns False if failed."""
-    key, _ = key_derive(password, salt)
+    key, _ = Key.key_derive(password, salt)
     cipher = ChaCha20_Poly1305.new(key=key, nonce=nonce)
     try:
         decrypted_key = cipher.decrypt_and_verify(encrypted_key, tag)
@@ -41,15 +54,6 @@ def decrypt_key(
         return False
 
     return decrypted_key
-
-
-def key_derive(password: str, salt: bytes | None = None) -> tuple[bytes, bytes]:
-    if not salt:
-        salt = os.urandom(16)  # 16 cryptographically secure random bytes
-    key = scrypt(password, str(salt), key_len=32, N=2**20, r=8, p=1)
-    if not isinstance(key, bytes):
-        raise TypeError
-    return key, salt
 
 
 def encrypt_files(files: dict[File, Path], password: str) -> Iterator:

@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://python.org"><img alt="Python version" src="https://img.shields.io/badge/Python-3.10-3776AB?style=flat&logo=python&logoColor=white"></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code_style-black-black"></a>
-<a href="https://github.com/70sh1/Vaultea/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green"></a>
+<a href="https://github.com/70sh1/Vaultea/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green"></a>
 </p>
 
 <p align="center">

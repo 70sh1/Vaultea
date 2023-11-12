@@ -58,7 +58,7 @@ Vaultea has not been tested on macOS by any means, therefore prebuilt binaries a
 4. Run `poetry run python main.py` *OR* `python main.py`
 
 ## Generating a passphrase
-Passphrases are awesome. Vaultea provides the ability to generate one with a single click. It consists of six randomly selected words from EFF's long wordlist. You can read more about passphrases [here](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases).
+Passphrases are awesome. Vaultea provides the ability to generate one with a single click. It consists of six randomly selected words from EFF's long wordlist. You can read more about passphrases [here](https://www.eff.org/dice).
 
 *TL;DR they are considered stronger and much easier to remember than regular passwords.*
 

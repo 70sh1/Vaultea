@@ -17,10 +17,10 @@ _Vaultea_ is simple and easy to use file encryption app. It supports batch file 
 
 ## Features
 * Batch file processing
-* Folder encryption (automatic zipping before encryption)
+* Folder encryption (zip archive will be created before encryption)
 * Data authencity
 * Plausible deniability
-* [Passphrase generation](https://github.com/70sh1/Vaultea#generating-a-passphrase)
+* [Passphrase generation](#generating-a-passphrase)
 
 ## Installation
 

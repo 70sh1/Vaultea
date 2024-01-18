@@ -1,6 +1,6 @@
 #define MyAppName "Vaultea"
-#define MyAppVersion "1.1"
-#define RawVersion "1.1.0.0"
+#define MyAppVersion "1.2"
+#define RawVersion "1.2.0.0"
 #define MyAppPublisher "yoshidzo"
 #define MyAppURL "https://www.github.com/yoshidzo/Vaultea"
 #define MyAppExeName "Vaultea.exe"

@@ -30,7 +30,7 @@ class App:
     def __init__(self) -> None:
         self.files_in: dict[str, list[File]] = {"_enc": [], "_dec": []}
         self.popup: Popup | None = None
-        self.version: str = "1.1"
+        self.version: str = "1.2"
         self.project_url: str = "https://github.com/70sh1/Vaultea"
 
     def setup_and_spawn_window(
